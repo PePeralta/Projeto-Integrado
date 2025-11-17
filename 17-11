@@ -1,0 +1,14 @@
+### Outro exercício feito em python cerca de 25% do curso já está feito
+def number_pattern(n):
+    result = []
+    if isinstance(n, int):
+        if n > 0:
+            for i in range(1, n + 1):
+                result.append(str(i))
+            return " ".join(result)
+        else:
+            return "Argument must be an integer greater than 0."
+    else:
+        return "Argument must be an integer value."
+
+print(number_pattern(1))
