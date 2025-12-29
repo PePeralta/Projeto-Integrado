@@ -8,8 +8,5 @@
 ## Tecnologias a estudar
 Programação em python
 
-## Cursos a serem feitos
-- https://www.freecodecamp.org/news/build-an-ai-coding-agent-with-python-and-gemini/
-
-Primeiro trabalho feito dia 13/10
-<img width="514" height="570" alt="image" src="https://github.com/user-attachments/assets/fa2d6de6-ecc5-45e4-b132-db5374cfc83b" />
+## Projeto da aplicação
+O projeto desta disciplina irá ser a parte administrativa da aplicação feita para programação para a web 2, está a ser construida em python
