@@ -1,4 +1,5 @@
 import mysql.connector
+<<<<<<< HEAD
 import hashlib
 
 print("Iniciar sessão")
@@ -7,12 +8,22 @@ email = input("Email: ")
 senha = input("Senha: ")
 senha_encr = hashlib.sha1(senha.encode()).hexdigest()
 
+=======
+
+print("Iniciar sessão")
+
+
+email = input("Email: ")
+senha = input("Senha: ")
+    
+>>>>>>> 242dda1ab4e1610974c7efec9a64b1f44b4ca0ef
 con = mysql.connector.connect(
     host="localhost",
     user="root",
     password="",
     database="test"
 )
+<<<<<<< HEAD
 
 cur = con.cursor()
 
@@ -28,11 +39,23 @@ if resultado:
     tipo_utilizador = resultado[0]
     print("✅ Login efetuado com sucesso!")
 
+=======
+    
+cur = con.cursor()
+    
+cur.execute("SELECT tipo FROM users WHERE email=%s AND password=%s",(email, senha))
+    
+resultado = cur.fetchone()
+if resultado:
+    tipo_utilizador = resultado[0]
+    print("✅ Login efetuado com sucesso!")
+>>>>>>> 242dda1ab4e1610974c7efec9a64b1f44b4ca0ef
     if tipo_utilizador.lower() == "administrador":
         print("Certo, vamos prosseguir...")
         print("1 - Verificar os utilizadores")
         print("2 - Verificar os produtos")
         print("3 - Encerrar sessão")
+<<<<<<< HEAD
         escolha = input("Escolha uma opção: ")
 
         if escolha == '1':
@@ -76,5 +99,12 @@ if resultado:
     else:
         print("Email ou palavra-passe incorretos")
 
+=======
+    else:
+        print("Esta aplicação é apenas para administradores")
+else:
+        print("Email ou palavra-passe incorretos")
+    
+>>>>>>> 242dda1ab4e1610974c7efec9a64b1f44b4ca0ef
 cur.close()
 con.close()
