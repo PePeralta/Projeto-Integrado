@@ -21,6 +21,28 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+
+  <style>
+    .pago {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 200;
+    }
+
+    .porpagar {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 200;
+    }
+</style>
   <!--================ Start Header Menu Area =================-->
 	<header class="header_area">
     <div class="main_menu">
@@ -68,6 +90,7 @@
                                 <th class="border-gray-200" scope="col">Compra</th>
                                 <th class="border-gray-200" scope="col">Total</th>
                                 <th class="border-gray-200" scope="col">Data Envio</th>
+                                <th class="border-gray-200" scope="col">Estado</th>
                                 <th class="border-gray-200" scope="col">Mais Informações</th>
                                 <th class="border-gray-200" scope="col">Eliminar</th>
                             </tr>
@@ -81,8 +104,17 @@
                                     <td>{{ e.total }}€</td>
                                     <td>{{ e.data_envio }}</td>
                                     <td>
-                                        <a href="{{ url_for('single_envio', envio_id=e.id) }}" class="btn btn-sm btn-primary"> Ver </a>
+                                      <a href="{{ url_for('toggle_estado_envio', envio_id=e.id) }}">
+                                        {% if e.estado == "PorPagar" %}
+                                          <span class="porpagar">{{ e.estado }}</span>
+                                        {% else %}
+                                          <span class="pago">{{ e.estado }}</span>
+                                        {% endif %}
+                                      </a>
+                                    </td>
 
+                                    <td>
+                                        <a href="{{ url_for('single_envio', envio_id=e.id) }}" class="btn btn-sm btn-primary"> Ver </a>
                                     </td>
                                     <td>
                                         <a href="{{ url_for('delete_envio', envio_id=e.id) }}"
@@ -94,7 +126,7 @@
                                 {% endfor %}
                             {% else %}
                                 <tr>
-                                    <td colspan="6" class="text-center">
+                                    <td colspan="7" class="text-center">
                                         Nenhum envio encontrado
                                     </td>
                                 </tr>

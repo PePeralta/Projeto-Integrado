@@ -36,28 +36,13 @@
         </button>
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-            <li class="nav-item"><a class="nav-link" href="#">Loja</a></li>
-            <li class="nav-item submenu dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Conta</a>
-              <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="#">Perfil</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Pagamentos</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Segurança</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{{ url_for('login_page') }}">Entrar</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">Registar</a></li>
-              </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost/login.php">
+                Voltar ao login de Utilizador
+              </a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#">Contactos</a></li>
-          </ul>
 
-          <ul class="nav-shop">
-            {% if session.loggedin %}
-              <li class="nav-item">
-                <button><a href="#"><i class="ti-shopping-cart"></i><span class="nav-shop__circle">0</span></a></button>
-              </li>
-            {% endif %}
           </ul>
-
         </div>
       </div>
     </nav>

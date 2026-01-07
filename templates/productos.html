@@ -39,8 +39,8 @@
               <li class="nav-item"><a class="nav-link" href="{{ url_for('carrinhos') }}">Carrinho</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ url_for('contactos') }}">Contactos</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ url_for('envios') }}">Pedidos</a></li>
-              <li class="nav-item"><a class="nav-link" href="{{ url_for('produtos') }}">Produtos</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('users') }}">Users</a></li>
             </ul>
 
             <ul class="nav-shop">
@@ -79,7 +79,12 @@
     </style>
     <div class="container-xl px-4 mt-4">
     <div class="card mb-4">
-        <div class="card-header">Produtos</div>
+        <div class="card-header">Produtos
+          <a href="{{ url_for('add_produto') }}" class="btn btn-sm btn-primary">
+  +
+</a>
+
+        </div>
         <div class="card-body p-0">
             <div class="table-responsive table-billing-history">
                 <table class="table mb-0">
@@ -89,6 +94,7 @@
                             <th scope="col">Nome</th>
                             <th scope="col">Descrição</th>
                             <th scope="col">Preço</th>
+                            <th scope="col">Preço c/ Desconto</th>
                             <th scope="col">Stock</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Peso</th>
@@ -110,6 +116,7 @@
                                 <td>{{ p.nome }}</td>
                                 <td>{{ p.descricao }}</td>
                                 <td>{{ p.preco }}</td>
+                                <td>{{ p.preco_promocional }}</td>
                                 {% if p.stock < 5 %}
                                     <td style="color:red;">{{ p.stock }}</td>
                                 {% else %}
@@ -141,7 +148,7 @@
                             {% endfor %}
                         {% else %}
                         <tr>
-                            <td colspan="14" class="text-center">Nenhum produto encontrado</td>
+                            <td colspan="15" class="text-center">Nenhum produto encontrado</td>
                         </tr>
                         {% endif %}
                     </tbody>

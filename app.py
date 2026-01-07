@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mysqldb import MySQL
+from werkzeug.utils import secure_filename
 import MySQLdb.cursors
 import hashlib
+import os 
 
 app = Flask(__name__)
+UPLOAD_FOLDER = r'C:\xampp\htdocs\imagens-produtos'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key="segredo"
 
 app.config['MYSQL_HOST'] = 'localhost'
@@ -216,6 +220,28 @@ def single_envio(envio_id):
         total_final=total_final
     )
 
+@app.route("/envios/toggle/<int:envio_id>")
+def toggle_estado_envio(envio_id):
+    if 'loggedin' not in session:
+        return redirect(url_for('login_page'))
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    cursor.execute("SELECT estado FROM pedidos WHERE id = %s", (envio_id,))
+    envio = cursor.fetchone()
+
+    if envio:
+        novo_estado = "Pago" if envio['estado'] == "PorPagar" else "PorPagar"
+        cursor.execute(
+            "UPDATE pedidos SET estado = %s WHERE id = %s",
+            (novo_estado, envio_id)
+        )
+        mysql.connection.commit()
+
+    cursor.close()
+    return redirect(url_for('envios'))
+
+
 #parte ddos utilizadores
 @app.route("/perfis")
 def users():
@@ -250,6 +276,50 @@ def produtos():
         cursor.close()
         return render_template("productos.html", produtos=produtos)
     return redirect(url_for('login_page'))
+
+@app.route("/produtos/adicionar", methods=["GET", "POST"])
+def add_produto():
+    if 'loggedin' not in session:
+        return redirect(url_for('login_page'))
+
+    if request.method == "POST":
+        nome = request.form['nome']
+        categoria = request.form['categoria']
+        preco = request.form['preco']
+        precopromocional = request.form.get('precopromocional')
+        altura = request.form.get('altura')
+        largura = request.form.get('largura')
+        comprimento = request.form.get('comprimento')
+        peso = request.form.get('peso')
+        ativo = request.form['ativo']
+        stock = request.form['stock']
+        marca = request.form['marca']
+        cor = request.form['cor']
+        descricao = request.form['descricao']
+
+        imagem = request.files['imagem_principal']
+        filename = secure_filename(imagem.filename)
+        caminho_imagem = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        imagem.save(caminho_imagem)
+
+        cursor = mysql.connection.cursor()
+
+        cursor.execute("""
+            INSERT INTO produtos
+            (nome, categoria, preco, preco_promocional, altura, largura, comprimento, peso, ativo, stock, marca, cor, descricao, imagem)
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+        """, (
+            nome, categoria, preco, precopromocional,
+            altura, largura, comprimento, peso,
+            ativo, stock, marca, cor, descricao, filename
+        ))
+
+        mysql.connection.commit()
+        cursor.close()
+
+        return redirect(url_for('produtos'))
+
+    return render_template("add-product.html")
 
 
 @app.route("/produtos/toggle/<int:produto_id>")

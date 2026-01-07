@@ -43,7 +43,6 @@
               <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
               <li class="nav-item"><a class="nav-link" href="{{ url_for('users') }}">Users</a></li>
             </ul>
-
             <ul class="nav-shop">
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('logout') }}"><i class="ti-power-off"></i> Logout</a>
@@ -55,45 +54,45 @@
     </div>
   </header>
 	<!--================ End Header Menu Area =================-->
-    {% if produto %}
     <div style="margin-left:25%;">
             <div class="container-xl px-4 mt-4">
                 <div class="col-xl-8">
                     <!-- Account details card-->
                     <div class="card mb-4">
-                        <div class="card-header">Editar Produto</div>
+                        <div class="card-header">Administração</div>
                         <div class="card-body">
-                            <form method="post" enctype="multipart/form-data">
+                            <form method="post" action="{{ url_for('add_produto') }}" enctype="multipart/form-data">
                               <!-- Form Row-->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (first name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputFirstName">Nome</label>
-                                        <input class="form-control" name="nome" type="text" placeholder="Nome do produto" required value="{{ produto.nome }}">
+                                        <input class="form-control" name="nome" type="text" placeholder="Nome do produto" required>
                                     </div>
                                     <!-- Form Group (last name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputOrgName">Categoria</label>
-                                        <select name="categoria_id" class="form-control" required>
-                                            <option value="Eletronica" {% if produto.categoria == "Eletronica" %}selected{% endif %}>Eletrónica</option>
-                                            <option value="Informatica" {% if produto.categoria == "Informatica" %}selected{% endif %}>Informática</option>
-                                            <option value="Telemoveis" {% if produto.categoria == "Telemoveis" %}selected{% endif %}>Telemóveis</option>
-                                            <option value="Acessorios" {% if produto.categoria == "Acessorios" %}selected{% endif %}>Acessórios</option>
-                                            <option value="Gaming" {% if produto.categoria == "Gaming" %}selected{% endif %}>Gaming</option>
-                                            <option value="Casas" {% if produto.categoria == "Casas" %}selected{% endif %}>Casa & Escritório</option>
+                                        <select name="categoria" class="form-control" required>
+                                            <option value="">Escolha uma categoria</option>
+                                            <option value="Eletronica">Eletrónica</option>
+                                            <option value="Informatica">Informática</option>
+                                            <option value="Telemoveis">Telemóveis</option>
+                                            <option value="Acessorios">Acessórios</option>
+                                            <option value="Gaming">Gaming</option>
+                                            <option value="Casas">Casa & Escritório</option>
                                         </select>
                                     </div>
                                 </div>
-                                <!-- Form Row -->
+                                <!-- Form Row        -->
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (organization name)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputLastName">Preço</label>
-                                        <input class="form-control" name="preco" type="number" placeholder="Preço do produto" required value="{{ produto.preco }}">
+                                        <input class="form-control" name="preco" type="number" placeholder="Preço do produto" required>
                                     </div>                                    <!-- Form Group (location)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputBirthday">Preço Promocional</label>
-                                        <input class="form-control" name="precopromocional" type="number" placeholder="Preço Promocional" value="{{ produto.preco_promocional }}">
+                                        <input class="form-control" name="precopromocional" type="number" placeholder="Preço Promocional">
                                     </div>
                                 </div>
                                 <!-- Form Row-->
@@ -101,36 +100,36 @@
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">Altura</label>
-                                        <input class="form-control" name="altura" type="number" placeholder="Altura" value="{{ produto.altura }}">
+                                        <input class="form-control" name="altura" type="number" placeholder="Altura">
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputBirthday">Largura</label>
-                                        <input class="form-control" name="largura" type="number" placeholder="Largura" value="{{ produto.largura }}">
+                                        <input class="form-control" name="largura" type="number" placeholder="Largura">
                                     </div>
                                 </div>
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">Comprimento</label>
-                                        <input class="form-control" name="comprimento" type="number" placeholder="Comprimento" value="{{ produto.comprimento }}">
+                                        <input class="form-control" name="comprimento" type="number" placeholder="Comprimento">
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputLocation">Peso</label>
-                                        <input class="form-control" name="peso" type="number" placeholder="Peso" value="{{ produto.peso }}">
+                                        <input class="form-control" name="peso" type="number" placeholder="Peso">
                                     </div>
                                 </div>
                                 <div class="row gx-3 mb-3">
                                     <!-- Form Group (phone number)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">Ativo ( 1- Sim | 2- Não )</label>
-                                        <input class="form-control" name="ativo" type="number" placeholder="Ativo" value="{{ produto.ativo }}">
+                                        <input class="form-control" name="ativo" type="number" placeholder="Ativo" >
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputLocation">Stock</label>
-                                        <input class="form-control" name="stock" type="number" placeholder="Stock" value="{{ produto.stock }}">
+                                        <input class="form-control" name="stock" type="number" placeholder="Stock">
                                     </div>
                                 </div>
                                 <div class="row gx-3 mb-3">
@@ -138,34 +137,37 @@
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputOrgName">Marca</label>
                                         <select name="marca" class="form-control" required>
-                                            <option value="Apple" {% if produto.marca == "Apple" %}selected{% endif %}>Apple</option>
-                                            <option value="Microsoft" {% if produto.marca == "Microsoft" %}selected{% endif %}>Microsoft</option>
-                                            <option value="Google" {% if produto.marca == "Google" %}selected{% endif %}>Google</option>
-                                            <option value="Samsung" {% if produto.marca == "Samsung" %}selected{% endif %}>Samsung</option>
-                                            <option value="Asus" {% if produto.marca == "Asus" %}selected{% endif %}>Asus</option>
-                                            <option value="Acer" {% if produto.marca == "Acer" %}selected{% endif %}>Acer</option>
-                                            <option value="Sony" {% if produto.marca == "Sony" %}selected{% endif %}>Sony</option>
+                                            <option value="Apple">Apple</option>
+                                            <option value="Microsoft">Microsoft</option>
+                                            <option value="Google">Google</option>
+                                            <option value="Samsung">Samsung</option>
+                                            <option value="Asus">Asus</option>
+                                            <option value="Acer">Acer</option>
+                                            <option value="Sony">Sony</option>
                                         </select>
                                     </div>
                                     <!-- Form Group (birthday)-->
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputOrgName">Cores</label>
                                         <select name="cor" class="form-control" required>
-                                            <option value="Amarelo" {% if produto.cor == "Amarelo" %}selected{% endif %}>Amarelo</option>
-                                            <option value="Laranja" {% if produto.cor == "Laranja" %}selected{% endif %}>Laranja</option>
-                                            <option value="Branco" {% if produto.cor == "Branco" %}selected{% endif %}>Branco</option>
-                                            <option value="Azul" {% if produto.cor == "Azul" %}selected{% endif %}>Azul</option>
-                                            <option value="Preto" {% if produto.cor == "Preto" %}selected{% endif %}>Preto</option>
-                                            <option value="Castanho" {% if produto.cor == "Castanho" %}selected{% endif %}>Castanho</option>
-                                            <option value="Cinzento" {% if produto.cor == "Cinzento" %}selected{% endif %}>Cinzento</option>
-                                            <option value="Rosa" {% if produto.cor == "Rosa" %}selected{% endif %}>Rosa</option>
+                                            <option value="Amarelo">Amarelo</option>
+                                            <option value="Laranja">Laranja</option>
+                                            <option value="Branco">Branco</option>
+                                            <option value="Preto">Preto</option>
+                                            <option value="Castanho">Castanho</option>
+                                            <option value="Cinzento">Cinzento</option>
+                                            <option value="Rosa">Rosa</option>
                                         </select>
                                     </div>
                                 </div>
                                 <!-- Form Group (email address)-->
                                 <div class="mb-3">
                                     <label class="small mb-1" for="inputEmailAddress">Descrição</label>
-                                    <input class="form-control" name="descricao" type="text" placeholder="Descrição" required value="{{ produto.descricao }}">
+                                    <input class="form-control" name="descricao" type="text" placeholder="Descrição" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputEmailAddress">Imagem Principal</label>
+                                    <input class="form-control" name="imagem_principal" type="file" accept="image/*" required>
                                 </div>
                                     <button class="btn btn-primary" name="save" type="submit">Guardar Produto</button> 
                           </form>
@@ -173,9 +175,9 @@
                     </div>
                 </div>
             </div>
-    {% endif %}
-  
-  </div>
+        </div>
+    </div>
+
 
 
   <!--================ Start footer Area  =================-->	
