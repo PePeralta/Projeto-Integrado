@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Avaliações - Aroma Shop</title>
+	<link rel="icon" href="{{ url_for('static', filename='img/Fevicon.png') }}" type="image/png">
+
+  <!-- CSS Vendors -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/themify-icons/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/linericon/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/nice-select/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/nouislider/nouislider.min.css') }}">
+  
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+</head>
+<body>
+  <!--================ Start Header Menu Area =================-->
+	<header class="header_area">
+    <div class="main_menu">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand logo_h" href="#"><img src="{{ url_for('static', filename='img/logo.png') }}" alt=""></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('avaliacoes') }}">Avaliações</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('carrinhos') }}">Carrinho</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('contactos') }}">Contactos</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('envios') }}">Pedidos</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('produtos') }}">Produtos</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            </ul>
+
+            <ul class="nav-shop">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}"><i class="ti-power-off"></i> Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+	<!--================ End Header Menu Area =================-->
+    {% if produto %}
+    <div style="margin-left:25%;">
+            <div class="container-xl px-4 mt-4">
+                <div class="col-xl-8">
+                    <!-- Account details card-->
+                    <div class="card mb-4">
+                        <div class="card-header">Editar Produto</div>
+                        <div class="card-body">
+                            <form method="post" enctype="multipart/form-data">
+                              <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (first name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputFirstName">Nome</label>
+                                        <input class="form-control" name="nome" type="text" placeholder="Nome do produto" required value="{{ produto.nome }}">
+                                    </div>
+                                    <!-- Form Group (last name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputOrgName">Categoria</label>
+                                        <select name="categoria_id" class="form-control" required>
+                                            <option value="Eletronica" {% if produto.categoria == "Eletronica" %}selected{% endif %}>Eletrónica</option>
+                                            <option value="Informatica" {% if produto.categoria == "Informatica" %}selected{% endif %}>Informática</option>
+                                            <option value="Telemoveis" {% if produto.categoria == "Telemoveis" %}selected{% endif %}>Telemóveis</option>
+                                            <option value="Acessorios" {% if produto.categoria == "Acessorios" %}selected{% endif %}>Acessórios</option>
+                                            <option value="Gaming" {% if produto.categoria == "Gaming" %}selected{% endif %}>Gaming</option>
+                                            <option value="Casas" {% if produto.categoria == "Casas" %}selected{% endif %}>Casa & Escritório</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Form Row -->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (organization name)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputLastName">Preço</label>
+                                        <input class="form-control" name="preco" type="number" placeholder="Preço do produto" required value="{{ produto.preco }}">
+                                    </div>                                    <!-- Form Group (location)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputBirthday">Preço Promocional</label>
+                                        <input class="form-control" name="precopromocional" type="number" placeholder="Preço Promocional" value="{{ produto.preco_promocional }}">
+                                    </div>
+                                </div>
+                                <!-- Form Row-->
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputPhone">Altura</label>
+                                        <input class="form-control" name="altura" type="number" placeholder="Altura" value="{{ produto.altura }}">
+                                    </div>
+                                    <!-- Form Group (birthday)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputBirthday">Largura</label>
+                                        <input class="form-control" name="largura" type="number" placeholder="Largura" value="{{ produto.largura }}">
+                                    </div>
+                                </div>
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputPhone">Comprimento</label>
+                                        <input class="form-control" name="comprimento" type="number" placeholder="Comprimento" value="{{ produto.comprimento }}">
+                                    </div>
+                                    <!-- Form Group (birthday)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputLocation">Peso</label>
+                                        <input class="form-control" name="peso" type="number" placeholder="Peso" value="{{ produto.peso }}">
+                                    </div>
+                                </div>
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputPhone">Ativo ( 1- Sim | 2- Não )</label>
+                                        <input class="form-control" name="ativo" type="number" placeholder="Ativo" value="{{ produto.ativo }}">
+                                    </div>
+                                    <!-- Form Group (birthday)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputLocation">Stock</label>
+                                        <input class="form-control" name="stock" type="number" placeholder="Stock" value="{{ produto.stock }}">
+                                    </div>
+                                </div>
+                                <div class="row gx-3 mb-3">
+                                    <!-- Form Group (phone number)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputOrgName">Marca</label>
+                                        <select name="marca" class="form-control" required>
+                                            <option value="Apple" {% if produto.marca == "Apple" %}selected{% endif %}>Apple</option>
+                                            <option value="Microsoft" {% if produto.marca == "Microsoft" %}selected{% endif %}>Microsoft</option>
+                                            <option value="Google" {% if produto.marca == "Google" %}selected{% endif %}>Google</option>
+                                            <option value="Samsung" {% if produto.marca == "Samsung" %}selected{% endif %}>Samsung</option>
+                                            <option value="Asus" {% if produto.marca == "Asus" %}selected{% endif %}>Asus</option>
+                                            <option value="Acer" {% if produto.marca == "Acer" %}selected{% endif %}>Acer</option>
+                                            <option value="Sony" {% if produto.marca == "Sony" %}selected{% endif %}>Sony</option>
+                                        </select>
+                                    </div>
+                                    <!-- Form Group (birthday)-->
+                                    <div class="col-md-6">
+                                        <label class="small mb-1" for="inputOrgName">Cores</label>
+                                        <select name="cor" class="form-control" required>
+                                            <option value="Amarelo" {% if produto.cor == "Amarelo" %}selected{% endif %}>Amarelo</option>
+                                            <option value="Laranja" {% if produto.cor == "Laranja" %}selected{% endif %}>Laranja</option>
+                                            <option value="Branco" {% if produto.cor == "Branco" %}selected{% endif %}>Branco</option>
+                                            <option value="Azul" {% if produto.cor == "Azul" %}selected{% endif %}>Azul</option>
+                                            <option value="Preto" {% if produto.cor == "Preto" %}selected{% endif %}>Preto</option>
+                                            <option value="Castanho" {% if produto.cor == "Castanho" %}selected{% endif %}>Castanho</option>
+                                            <option value="Cinzento" {% if produto.cor == "Cinzento" %}selected{% endif %}>Cinzento</option>
+                                            <option value="Rosa" {% if produto.cor == "Rosa" %}selected{% endif %}>Rosa</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Form Group (email address)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputEmailAddress">Descrição</label>
+                                    <input class="form-control" name="descricao" type="text" placeholder="Descrição" required value="{{ produto.descricao }}">
+                                </div>
+                                    <button class="btn btn-primary" name="save" type="submit">Guardar Produto</button> 
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    {% endif %}
+  
+  </div>
+
+
+  <!--================ Start footer Area  =================-->	
+	<footer>
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Ligações Rápidas</h4>
+							<ul class="list">
+								<li><a href="index.php">Página principal</a></li>
+								<li><a href="category.php">Produtos</a></li>
+								<li><a href="account-details.php">Conta</a></li>
+								<li><a href="contact.php">Contactos</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contacta-nos</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Alenquer
+								</p>
+								<p>Rua das Flores, Lote 31, Carregado</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Telemóvel
+								</p>
+								<p>
+									+351 931 545 012 <br>
+									+351 963 861 296
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									240001218@esg.ipsantarem.pt<br>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </footer>
+	<!--================ End footer Area  =================-->
+  <script src="{{ url_for('static', filename='vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/skrollr.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/mail-script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

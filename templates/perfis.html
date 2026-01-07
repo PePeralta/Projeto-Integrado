@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Avaliações - Aroma Shop</title>
+	<link rel="icon" href="{{ url_for('static', filename='img/Fevicon.png') }}" type="image/png">
+
+  <!-- CSS Vendors -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/themify-icons/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/linericon/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/nice-select/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/nouislider/nouislider.min.css') }}">
+  
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <!--================ Start Header Menu Area =================-->
+	<header class="header_area">
+    <div class="main_menu">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand logo_h" href="#"><img src="{{ url_for('static', filename='img/logo.png') }}" alt=""></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('avaliacoes') }}">Avaliações</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('carrinhos') }}">Carrinho</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('contactos') }}">Contactos</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('envios') }}">Pedidos</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('produtos') }}">Produtos</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            </ul>
+
+            <ul class="nav-shop">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}"><i class="ti-power-off"></i> Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+	<!--================ End Header Menu Area =================-->
+
+    <div class="container-xl px-4 mt-4">
+    <div class="card mb-4">
+        <div class="card-header">Utilizadores</div>
+        <div class="card-body p-0">
+            <div class="table-responsive table-billing-history">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Primeiro Nome</th>
+                            <th scope="col">Último Nome</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if users %}
+                            {% for u in users %}
+                            <tr>
+                                <td>{{ u.id }}</td>
+                                <td>{{ u.username }}</td>
+                                <td>{{ u.email }}</td>
+                                <td>{{ u.primeiro_nome }}</td>
+                                <td>{{ u.ultimo_nome }}</td>
+                                <td>{{ u.tipo }}</td>
+                                <td>
+                                    {% if u.id != session['id'] %}
+                                    <a href="{{ url_for('delete_user', user_id=u.id) }}" class="btn btn-sm btn-danger">X</a>
+                                    {% else %}
+                                    <span class="text-muted"></span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center">Nenhum utilizador encontrado</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+  <!--================ Start footer Area  =================-->	
+	<footer>
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Ligações Rápidas</h4>
+							<ul class="list">
+								<li><a href="index.php">Página principal</a></li>
+								<li><a href="category.php">Produtos</a></li>
+								<li><a href="account-details.php">Conta</a></li>
+								<li><a href="contact.php">Contactos</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contacta-nos</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Alenquer
+								</p>
+								<p>Rua das Flores, Lote 31, Carregado</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Telemóvel
+								</p>
+								<p>
+									+351 931 545 012 <br>
+									+351 963 861 296
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									240001218@esg.ipsantarem.pt<br>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </footer>
+	<!--================ End footer Area  =================-->
+  <script src="{{ url_for('static', filename='vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/skrollr.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/mail-script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

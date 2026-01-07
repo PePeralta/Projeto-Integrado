@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Aroma Shop - Login</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/Fevicon.png') }}" type="image/png">
+
+  <!-- CSS Vendors -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/themify-icons/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/linericon/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/nice-select/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/nouislider/nouislider.min.css') }}">
+  
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <!-- Header -->
+ <!--================ Start Header Menu Area =================-->
+<header class="header_area">
+  <div class="main_menu">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand logo_h" href="#"><img src="{{ url_for('static', filename='img/logo.png') }}" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+          <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+            <li class="nav-item"><a class="nav-link" href="#">Loja</a></li>
+            <li class="nav-item submenu dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Conta</a>
+              <ul class="dropdown-menu">
+                  <li class="nav-item"><a class="nav-link" href="#">Perfil</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Pagamentos</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Segurança</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{ url_for('login_page') }}">Entrar</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#">Registar</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Contactos</a></li>
+          </ul>
+
+          <ul class="nav-shop">
+            {% if session.loggedin %}
+              <li class="nav-item">
+                <button><a href="#"><i class="ti-shopping-cart"></i><span class="nav-shop__circle">0</span></a></button>
+              </li>
+            {% endif %}
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+<!--================ End Header Menu Area =================-->
+
+
+  <!-- Login Box -->
+  <section class="login_box_area section-margin">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="login_box_img">
+            <div class="hover">
+              <h4>Login de administradores</h4>
+              <p>Se não és administrador não vais conseguir fazer login :(</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="login_form_inner">
+            <h3>Iniciar sessão</h3>
+            <form class="row login_form" method="post">
+              <div class="col-md-12 form-group">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+              </div>
+              <div class="col-md-12 form-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Palavra-passe" required>
+              </div>
+              <div class="col-md-12 form-group">
+                <button type="submit" class="button button-login w-100">Iniciar sessão</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <!--================ Start Footer Area =================-->  
+<footer>
+  <div class="footer-area">
+    <div class="container">
+      <div class="row section_gap">
+        <div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+          <div class="single-footer-widget tp_widgets">
+            <h4 class="footer_title">Ligações Rápidas</h4>
+            <ul class="list">
+              <li><a href="#">Página principal</a></li>
+              <li><a href="#">Produtos</a></li>
+              <li><a href="#">Conta</a></li>
+              <li><a href="#">Contactos</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+          <div class="single-footer-widget tp_widgets">
+            <h4 class="footer_title">Contacta-nos</h4>
+            <div class="ml-40">
+              <p class="sm-head"><span class="fa fa-location-arrow"></span> Alenquer</p>
+              <p>Rua das Flores, Lote 31, Carregado</p>
+
+              <p class="sm-head"><span class="fa fa-phone"></span> Telemóvel</p>
+              <p>+351 931 545 012 <br>+351 963 861 296</p>
+
+              <p class="sm-head"><span class="fa fa-envelope"></span> Email</p>
+              <p>240001218@esg.ipsantarem.pt</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!--================ End Footer Area =================-->
+
+
+  <!-- JS Vendors -->
+  <script src="{{ url_for('static', filename='vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/mail-script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Avaliações - Aroma Shop</title>
+	<link rel="icon" href="{{ url_for('static', filename='img/Fevicon.png') }}" type="image/png">
+
+  <!-- CSS Vendors -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/themify-icons/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/linericon/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.theme.default.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/nice-select/nice-select.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/nouislider/nouislider.min.css') }}">
+  
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <!--================ Start Header Menu Area =================-->
+	<header class="header_area">
+    <div class="main_menu">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand logo_h" href="#"><img src="{{ url_for('static', filename='img/logo.png') }}" alt=""></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+            <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('avaliacoes') }}">Avaliações</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('carrinhos') }}">Carrinho</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('contactos') }}">Contactos</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('envios') }}">Pedidos</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('produtos') }}">Produtos</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url_for('users') }}">Users</a></li>
+            </ul>
+
+            <ul class="nav-shop">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}"><i class="ti-power-off"></i> Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+	<!--================ End Header Menu Area =================-->
+
+      <section class="order_details section-margin--small">
+    <div class="container">
+      <p class="text-center billing-alert">Obrigado pela sua encomenda.</p>
+      <div class="row mb-5">
+        <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+          <div class="confirmation-card">
+            <h3 class="billing-title">Informações</h3>
+            <table class="order-rable">
+              <tr>
+                <td>Número de ordem</td>
+                <td>{{ envio.id }}</td>
+                </tr>
+                <tr>
+                <td>Data</td>
+                <td>{{ envio.data_envio }}</td>
+                </tr>
+                <tr>
+                <td>Total</td>
+                <td>{{ envio.total }}€</td>
+                </tr>
+                <tr>
+                <td>Estado</td>
+                <td>Pago</td>
+            </tr>
+
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
+          <div class="confirmation-card">
+            <h3 class="billing-title">Endereço de Entrega</h3>
+            <table class="order-rable">
+              <tr>
+                <td>Morada</td>
+                <td>{{ envio.morada }}</td>
+                </tr>
+                <tr>
+                <td>Distrito</td>
+                <td>{{ envio.distrito }}</td>
+                </tr>
+                <tr>
+                <td>País</td>
+                <td>{{ envio.pais }}</td>
+                </tr>
+                <tr>
+                <td>Código Postal</td>
+                <td>{{ envio.codigopostal }}</td>
+            </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="order_details_table">
+        <h2>Detalhes da ordem</h2>
+        <div class="table-responsive">
+            <table class="table">
+            <thead>
+                <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% if produtos %}
+                {% for p in produtos %}
+                <tr>
+                    <td>{{ p.nome_produto }}</td>
+                    <td>x {{ p.quantidade }}</td>
+                    <td>{{ "%.2f"|format(p.subtotal) }}€</td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="3" class="text-center">
+                    Nenhum produto encontrado
+                    </td>
+                </tr>
+                {% endif %}
+
+                <!-- SUBTOTAL -->
+                <tr>
+                <td><strong>Subtotal</strong></td>
+                <td></td>
+                <td>{{ "%.2f"|format(subtotal_pedido) }}€</td>
+                </tr>
+
+                <!-- TAXA -->
+                <tr>
+                <td><strong>Taxa de entrega</strong></td>
+                <td></td>
+                <td>{{ "%.2f"|format(taxa_entrega) }}€</td>
+                </tr>
+
+                <!-- TOTAL -->
+                <tr>
+                <td><strong>Total</strong></td>
+                <td></td>
+                <td><strong>{{ "%.2f"|format(total_final) }}€</strong></td>
+                </tr>
+
+            </tbody>
+            </table>
+  </div>
+</div>
+
+    </div>
+  </section>
+
+
+
+  <!--================ Start footer Area  =================-->	
+	<footer>
+		<div class="footer-area">
+			<div class="container">
+				<div class="row section_gap">
+					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Ligações Rápidas</h4>
+							<ul class="list">
+								<li><a href="index.php">Página principal</a></li>
+								<li><a href="category.php">Produtos</a></li>
+								<li><a href="account-details.php">Conta</a></li>
+								<li><a href="contact.php">Contactos</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+						<div class="single-footer-widget tp_widgets">
+							<h4 class="footer_title">Contacta-nos</h4>
+							<div class="ml-40">
+								<p class="sm-head">
+									<span class="fa fa-location-arrow"></span>
+									Alenquer
+								</p>
+								<p>Rua das Flores, Lote 31, Carregado</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-phone"></span>
+									Telemóvel
+								</p>
+								<p>
+									+351 931 545 012 <br>
+									+351 963 861 296
+								</p>
+	
+								<p class="sm-head">
+									<span class="fa fa-envelope"></span>
+									Email
+								</p>
+								<p>
+									240001218@esg.ipsantarem.pt<br>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </footer>
+	<!--================ End footer Area  =================-->
+  <script src="{{ url_for('static', filename='vendors/jquery/jquery-3.2.1.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/bootstrap/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/skrollr.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/nice-select/jquery.nice-select.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/jquery.ajaxchimp.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/mail-script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
